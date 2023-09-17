@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
-import { getProducts } from '../services';
+import { getProducts } from '../../services';
 import ItemList from "./ItemList";
 
 const ItemListContainer = () => {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
   const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const {categoryId} = useParams();
+  const {category} = useParams();
 
   useEffect(() =>{
- console.log(categoryId, "useEffect");
-    setIsLoading(true);
-    getProducts(categoryId)
-    .then((response) =>{
+    getProducts(category).then((response) =>{
       setItems(response);
-      setIsLoading(false);
     })
-  }, [categoryId])
+  }, [category])
   return (
     <div className="item-list-container d-flex justify-content-center align-items-center">
-      {/* <h2>{greeting}</h2> */}
-      <ItemList items={items} isLoading={isLoading}/>;
+      <ItemList items={items} addToCart={addToCart}/>;
     </div>
   );
 };

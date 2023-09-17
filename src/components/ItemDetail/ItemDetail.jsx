@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
-import Card from "./Card";
+import DetailedCard from "../Card/DetailedCard";
 const ItemDetail = ({item, isLoading}) =>{
     if(isLoading) {
-        return <h2>Cargando...</h2>;
+        return <h2>Loading...</h2>;
     }
     if(!item) {
-        return <h2>El Producto no esta en nuestro catálogo</h2>;
+        return <h2>Product Unavailable</h2>;
     }
     return (
-        <Card
+        <DetailedCard
         img={item.img}
         title={item.name}
         category={item.category}
         price={item.price}
         alt={item.alt}
+        
         />
     );
 };
