@@ -1,6 +1,7 @@
 .card {
     max-width: 300px;
-    min-height: 520px;
+    min-height: 600px;
+    height: fit-content;
     margin: auto;
     border: 1.5px solid #0d0058;
     border-radius: 10px;

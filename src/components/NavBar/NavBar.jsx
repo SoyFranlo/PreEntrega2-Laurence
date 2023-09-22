@@ -1,7 +1,6 @@
 // import React from 'react';
 import Cartwidget from '../Cartwidget';
 import {Link, NavLink} from 'react-router-dom';
-
 import './NavBar.css';
 
 const NavBar = () => {
@@ -9,7 +8,7 @@ const NavBar = () => {
     <nav className="navbar navbar-expand navbar-dark bg-dark fixed-top">
     <div className="container-fluid">
       <h1>
-        <Link to="/">Boca Store</Link>
+        <Link className="nav-title"to="/">Boca Store</Link>
       </h1>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">

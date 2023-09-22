@@ -9,5 +9,6 @@
     .container-items {
       margin-top: 50px;
       width: 100%;
+      height: fit-content;
       transition: .3s;
     }

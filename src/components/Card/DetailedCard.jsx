@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import "./Card.css";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -6,23 +6,24 @@ import CartContext from '../Context/CartContext';
 import ItemCount from '../ItemCount/ItemCount';
 import { toast } from 'react-toastify';
 
-const DetailedCard = ({ title, img, category, price, stock, alt, item}) => {
+const DetailedCard = ({ title, img, category, price, stock, alt, item }) => {
 
     const { addItem } = useContext(CartContext);
-  const [quantityToAdd, setQuantityToAdd] = useState(1);
+    const [quantityToAdd, setQuantityToAdd] = useState(1);
 
-  const handleAddToCart = () => {
-    addItem(item, quantityToAdd);
-    toast('Producto agregado al carrito', {
-      position: "top-left",
-      autoClose: 1100,
-      theme: "colored",
-    });
-  };
+    const handleAddToCart = () => {
+        stock = stock - quantityToAdd;
+        addItem(item, quantityToAdd);
+        toast('Producto agregado al carrito', {
+            position: "top-left",
+            autoClose: 1100,
+            theme: "colored",
+        });
+    };
 
-  if (!item) {
-    return null;
-  }
+    if (!item) {
+        return null;
+    }
 
     return (
         <div className="card">
@@ -31,13 +32,22 @@ const DetailedCard = ({ title, img, category, price, stock, alt, item}) => {
                 <h4 className="card-title">{title}</h4>
                 <p className="card-text">{category}</p>
                 <h5 className="card-text">${price}</h5>
-                <h6 className="card-text">Items in Stock: {stock}</h6>
+
+                <label htmlFor="size">Size:</label>
+                <select id="size" name="size">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+
                 <button onClick={handleAddToCart} className="btn btn-success w-100 m-auto mb-1">Add to Cart</button>
                 <ItemCount
-                initial={1}
-                stock={item.stock}
-                quantity={quantityToAdd}
-                onChange={setQuantityToAdd}
+                    initial={1}
+                    stock={item.stock}
+                    quantity={quantityToAdd}
+                    onChange={setQuantityToAdd}
                 />
                 <Link to="/">
                     <button>Go Back</button>

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CartContext from '../Context/CartContext';
 import { FaTrash } from 'react-icons/fa';
+import "./Cart.css"
 
 const Cart = () => {
     const { cart, removeItem, clearCart } = useContext(CartContext);
@@ -21,16 +22,16 @@ const Cart = () => {
             <h2>Your Cart</h2>
             {isEmpty ? (
                 <div>
-                    <p>Your Cart is Empty!</p>
+                    <p className='empty-cart'>Your Cart is Empty!</p>
                     <Link to="/"><button> See Products</button></Link>
                 </div>
             ) : (
                 <div>
-                    <ul>
+                    <ul className='cart-container'>
                         {cart.map((item) => (
                             <li className='card' key={item.id}>
                                 <div>
-                                    <img className='cart-img' src={item.img} alt={item.alt} />
+                                    <img className='cart-img-top img-thumbnail' src={item.img} alt={item.alt} />
                                 </div>
                                 <div>
                                     <h3 className='cart-product-title'>{item.title}</h3>
@@ -38,6 +39,7 @@ const Cart = () => {
                                 <div>
                                     <p>Price: ${item.price}</p>
                                     <p>Quantity: {item.quantity}</p>
+                                    <span>Decrease amount </span>
                                     <FaTrash onClick={() => removeItem(item.id)} />
                                 </div>
                             </li>
@@ -45,9 +47,9 @@ const Cart = () => {
                     </ul>
                     <div>
                         <div>
-                            <p>Total: ${calculateTotal()}</p>
+                            <p className='cart-total'>Total: ${calculateTotal()}</p>
                         </div>
-                        <button onClick={() => clearCart()}>Vaciar carrito</button>
+                        <button onClick={() => clearCart()}>Clear Cart</button>
                         <Link to="/checkout">
                             <button>Buy</button>
                         </Link>

@@ -77,21 +77,21 @@ return (
 <h2>Conclude your operation</h2>
 {isFormSubmitted ? (
   <div>
-    <p>Purchase Succesful</p>
-    <p>Purchase details: </p>
+    <p className="success">Purchase Succesful</p>
+    <p className="success">Purchase details: </p>
     <ul>
       {cart.map((item) => (
         <li key={item.id}>
           <div>
             <img src={item.img} alt={item.alt} />
           </div>
-          <p>{item.title}</p>
-          <p> - ${item.price} -</p>
-          <p>Amount: {item.quantity}</p>
+          <p className="success">{item.title}</p>
+          <p className="success"> - ${item.price} -</p>
+          <p className="success">Amount: {item.quantity}</p>
         </li>
       ))}
     </ul>
-    <p>Total: ${calculateTotal()}</p>
+    <p className="cart-total">Total: ${calculateTotal()}</p>
     <Link to="/">
       <button>Return</button>
     </Link>
@@ -100,7 +100,7 @@ return (
   <form onSubmit={handleSubmit}>
     <p>Fill in your data</p>
     <div>
-      <label htmlFor="name">Name:</label>
+      <label htmlFor="name">Name: </label>
       <input
         type="text"
         id="name"
@@ -111,7 +111,7 @@ return (
       />
     </div>
     <div>
-      <label htmlFor="phone">Phone Number:</label>
+      <label htmlFor="phone">Phone Number: </label>
       <input
         type="string"
         id="phone"
@@ -122,7 +122,7 @@ return (
       />
     </div>
     <div>
-      <label htmlFor="email">E-mail:</label>
+      <label htmlFor="email">E-mail: </label>
       <input
         type="email"
         id="email"
@@ -133,7 +133,7 @@ return (
       />
     </div>
     <div>
-      <label htmlFor="address">Shipping Adress:</label>
+      <label htmlFor="address">Shipping Adress: </label>
       <input
         id="address"
         name="address"
@@ -143,7 +143,7 @@ return (
       ></input>
     </div>
     <div>
-      <label htmlFor="paymentMethod">Payment Method:</label>
+      <label htmlFor="paymentMethod">Payment Method: </label>
       <select
         id="paymentMethod"
         name="paymentMethod"
