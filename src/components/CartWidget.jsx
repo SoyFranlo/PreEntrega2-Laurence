@@ -1,21 +1,16 @@
 import { useContext } from "react"
 import CartContext from "./Context/CartContext"
-import { cartAmount } from "../utils"
+import { FaShoppingCart } from 'react-icons/fa';
 
 const CartWidget = () => {
     const { cart } = useContext(CartContext)
 
-    const quantity = cartAmount(cart)
+    const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0)
 
     return (
         <div>
-            <button className="btn btn-outline-alert text-light position-relative">
-                <i className="bi bi-cart fs-4"></i>
-                <span className={`position-absolute top-0 start-100 translate-middle badge rounded-pill ${!!quantity && "bg-danger"}`}>
-                    {quantity > 0 ? quantity : ""}
-                    <span className="visually-hidden">Total products in Cart</span>
-                </span>
-            </button>
+            {totalQuantity > 0 && <FaShoppingCart/>}
+            {totalQuantity > 0 && <span>{totalQuantity}</span> }
         </div>
     )
 }

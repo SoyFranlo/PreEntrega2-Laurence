@@ -1,45 +1,43 @@
-// import React from 'react';
-import propTypes from 'prop-types';
-import { Link } from "react-router-dom";
-import Card from '../Card/Card';
+import React, { useMemo } from 'react';
 import "./ItemList.css";
+import Card from '../Card/Card';
 
 
-const ItemList = ({ items, isLoading }) => {
-    if (isLoading) {
-        return <h2>Loading...</h2>;
-    }
-    if (items.length === 0) {
-        return <h2>Non-existent Category...</h2>;
-    }
-    return (
-        
-        <div className='container'>
-            <ul className='container-items'>
-                {items.map((item) => (
-                    <li key={item.id}>
-                        <Link to={`/item/${item.id}`}>
-                        <Card
-                            img={item.img}
-                            title={item.name}
-                            category={item.category}
-                            price={item.price}
-                            alt={item.alt}
-                            product={item}
-                        />
-                </Link>
-                    </li>
-                ))}
-            </ul>
+
+// eslint-disable-next-line react/display-name
+const ItemList = React.memo(({ items }) => {
+    const renderedItems = useMemo(() => {
+        return items.map((item) => (
+          <li className='container-items' key={item.id}>
+            <Card 
+            title = { item.title }
+            img = { item.img }
+            category={item.category }
+            price={item.price}
+            alt={item.alt}
+            id= {`/items/${item.id}`}
+            />
+             
+          </li>
+        ));
+      }, [items]);
+    
+      const productList = (
+        <React.Fragment>
+          <p className='render-title'>Boca Store, where your passion takes place</p>
+          <h2 className='render-subtitle'>Our Products: </h2>      
+          <ul>
+            <div className='container-items'>
+              {renderedItems}
+            </div>
+          </ul>
+        </React.Fragment>
+      );
+    
+      return (
+        <div>
+          {productList}
         </div>
-    );
-
-}
-ItemList.propTypes = {
-    items: propTypes.array.isRequired,
-    isLoading: propTypes.bool,
-    addToCart: propTypes.bool,
-    product: propTypes.string,
-};
-
+      );
+    });
 export default ItemList;

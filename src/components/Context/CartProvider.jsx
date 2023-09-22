@@ -1,40 +1,47 @@
 import { useState } from "react"
 import CartContext from "./CartContext"
 import PropTypes from "prop-types";
-const CartProvider = ({children}) => {
+
+export const CartProvider = ({children}) => {
     const [cart, setCart] = useState([])
+    
 
-    const isInCart = (id) => {
-        const itemInCart = cart.find((l) => l.id === id)
-        return !!itemInCart
+    const isInCart = (itemId) => {
+        return cart.some((p) => p.id === itemId)
     }
 
-    const addItem = (product, cantidad) =>{
-
-        const inCart = isInCart(product.id)
-        
-        if (inCart) {
-            const newCart = cart.map((item) => {
-                if (item.id === product.id) {
-                    return {
-                        ...item,
-                        cantidad: item.cantidad + cantidad,
-                    };
-                }
-                return item
+    const addItem = (item, quantity) => {
+        if (!isInCart(item.id)) {
+          setCart((prev) => [...prev, { ...item, quantity, key: item.id }]);
+        } else {
+          setCart((prev) =>
+            prev.map((product) => {
+              if (product.id === item.id) {
+                return { ...product, quantity: product.quantity + quantity };
+              } else {
+                return product;
+              }
             })
-            setCart(newCart)
-        }else{
-            setCart([...cart, {...product, cantidad }])
+          );
         }
-    }
+      };
 
 
-    const removeItem = (product) => {
-        const newCart = cart.filter(l => l.id !== product)
-        setCart(newCart)
-    }
+    const removeItem = (itemId) => {
+        const cartCopy = [...cart];
+         const itemIndex = cartCopy.findIndex((item) => item.id === itemId);
+         const indexFound = itemIndex !== -1;
 
+         if (indexFound) {
+            const currentQuantity = cartCopy[itemIndex].quantity;
+            if (currentQuantity > 1){
+                cartCopy[itemIndex].quantity -= 1;
+            } else {
+                cartCopy.splice(itemIndex, 1);
+            }
+            setCart(cartCopy);
+            }
+    };
 
     const emptyCart = () => {
         setCart([])
@@ -42,7 +49,7 @@ const CartProvider = ({children}) => {
 
 
     return(
-        <CartContext.Provider value={{cart, addItem, removeItem, emptyCart, isInCart}}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, emptyCart, }}>
             {children}
         </CartContext.Provider>
     )
@@ -51,4 +58,3 @@ const CartProvider = ({children}) => {
 CartProvider.propTypes = {
 children: PropTypes.any
 };
-export default CartProvider
