@@ -9,12 +9,12 @@ import './index.css';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDcrinr2qxqyILXQ4ZzSotyzcVpXwDKH0E",
-  authDomain: "react-proyecto-cc8d1.firebaseapp.com",
-  projectId: "react-proyecto-cc8d1",
-  storageBucket: "react-proyecto-cc8d1.appspot.com",
-  messagingSenderId: "298998112785",
-  appId: "1:298998112785:web:c8d54339119c3ccabb07b0"
+  apiKey: import.meta.env.VITE_FIRESTORE_API_KEY,
+  authDomain: import.meta.env.VITE_FIRESTORE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIRESTORE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIRESTORE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIRESTORE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIRESTORE_APP_ID,
 };
 
 // Firebase initialization
