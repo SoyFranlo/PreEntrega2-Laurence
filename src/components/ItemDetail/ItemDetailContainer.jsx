@@ -9,13 +9,16 @@ const ItemDetailContainer = () => {
     const { id } = useParams();
    
     useEffect(() => {
-        getProduct(id).then((response) => {
-            setItem(response);
+        getProduct(id)
+        .then((response) => {
+          setIsLoading(false);
+          setItem(response);
         })
-        .catch(() => {
-            setIsLoading(false);
-            setItem(null);
-        })
+        .catch((error) => {
+          console.error("Error fetching item:", error);
+          setIsLoading(false);
+          setItem(null);
+        });
     }, [id]);
     return (
         <div className="container">

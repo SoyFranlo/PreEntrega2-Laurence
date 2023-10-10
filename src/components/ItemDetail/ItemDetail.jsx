@@ -13,7 +13,7 @@ const ItemDetail = ({item, isLoading}) =>{
     <div>
         {!isLoading && item && (
         <DetailedCard
-        id = {item.id}
+        id= {item.id}
         title={item.title}
         img={item.img}
         category={item.category}
