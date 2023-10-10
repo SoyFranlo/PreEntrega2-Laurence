@@ -1,4 +1,4 @@
-import {getFirestore, collection, addDoc} from "firebase/firestore"
+import { createOrder } from "../../services";
 import { useState, useContext, useEffect } from "react"
 import "./Checkout.css"
 import { Link } from 'react-router-dom';
@@ -45,10 +45,10 @@ function Checkout() {
         total: calculateTotal(),
 
         };
-        const db = getFirestore();
-        const ordersCollection = collection(db, 'orders');
+      
         
-        addDoc(ordersCollection, newOrderData).then((docRef) => {
+        createOrder(newOrderData)
+        .then((docRef) => {
             setOrderId(docRef.id);
             setIsFormSubmitted(true);
         });
@@ -78,6 +78,7 @@ return (
 {isFormSubmitted ? (
   <div>
     <p className="success">Purchase Succesful</p>
+    <p className="success">Order ID: {orderId}</p>
     <p className="success">Purchase details: </p>
     <ul>
       {cart.map((item) => (

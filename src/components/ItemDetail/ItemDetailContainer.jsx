@@ -5,6 +5,7 @@ import { getProduct } from "../../services";
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
    
     useEffect(() => {
@@ -12,12 +13,13 @@ const ItemDetailContainer = () => {
             setItem(response);
         })
         .catch(() => {
+            setIsLoading(false);
             setItem(null);
         })
     }, [id]);
     return (
         <div className="container">
-        <ItemDetail className="con" id={item.id} item={item} />
+        <ItemDetail className="con" id={item.id} item={item} isLoading={isLoading} />
         </div>
         )
 }

@@ -39,8 +39,8 @@ export const getProduct = (id) => {
       });
     };
 
-export const createOrder = (orderr) => {
+export const createOrder = (order) => {
   const db = getFirestore();
-  const order = collection(db, 'orders');
-  return addDoc(order, orderr);
+  const ordersCollection = collection(db, 'orders');
+  return addDoc(ordersCollection, order);
 };
